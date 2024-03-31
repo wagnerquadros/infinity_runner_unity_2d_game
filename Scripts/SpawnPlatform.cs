@@ -9,7 +9,10 @@ public class SpawnPlatform : MonoBehaviour
     private List<Transform> currentPlatforms = new List<Transform>();   // listas de plataformas geradas na cena
     public float offset;                                               // variavel para armazenar a posição de criação e reciclagem das plataformas
 
-    public Transform player;
+    private Transform player;
+
+    private Transform currentPlatformPoint;
+    private int platformIndex;
 
     private void Start()
     {
@@ -22,11 +25,36 @@ public class SpawnPlatform : MonoBehaviour
             currentPlatforms.Add(clonePlatform);
             offset += 30;
         }
+
+        currentPlatformPoint = currentPlatforms[platformIndex].GetComponent<Platform>().finalPoint; //Pega o ponto final da plataforma atual
+    }
+
+    private void Update()
+    {
+        Move();
     }
 
     public void Recycle(GameObject platform)
     {
         platform.transform.position = new Vector2(offset, 0f);
         offset += 30;
+    }
+
+    void Move()
+    {
+        float distance = player.position.x - currentPlatformPoint.position.x;  // mede a distancia entre o player e o final da plataforma
+
+        if (distance >= 1)
+        {
+            Recycle(currentPlatforms[platformIndex].gameObject);               // Passando da plataforma ela é reciclada
+            platformIndex++;                                                  // Incrementamos o index da plataforma atual
+            
+            if (platformIndex > currentPlatforms.Count - 1)                 // 
+            {
+                platformIndex = 0;
+            }
+
+            currentPlatformPoint = currentPlatforms[platformIndex].GetComponent<Platform>().finalPoint; //Pega o ponto final da plataforma atual
+        }
     }
 }
