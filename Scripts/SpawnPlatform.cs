@@ -21,7 +21,7 @@ public class SpawnPlatform : MonoBehaviour
         for (int i = 0; i < platforms.Count; i++)
         {
             // Para instanciar um objeto temos que passar uma posição e uma rotação
-            Transform clonePlatform = Instantiate(platforms[i], new Vector2(i * 30,0), transform.rotation).transform;
+            Transform clonePlatform = Instantiate(platforms[i], new Vector2(i * 30,-4.5f), transform.rotation).transform;
             currentPlatforms.Add(clonePlatform);
             offset += 30;
         }
@@ -49,7 +49,7 @@ public class SpawnPlatform : MonoBehaviour
             Recycle(currentPlatforms[platformIndex].gameObject);               // Passando da plataforma ela é reciclada
             platformIndex++;                                                  // Incrementamos o index da plataforma atual
             
-            if (platformIndex > currentPlatforms.Count - 1)                 // 
+            if (platformIndex > currentPlatforms.Count - 1)                 // Verifica se o index está dentro do tamanho da lista de plataformas
             {
                 platformIndex = 0;
             }
