@@ -36,7 +36,7 @@ public class SpawnPlatform : MonoBehaviour
 
     public void Recycle(GameObject platform)
     {
-        platform.transform.position = new Vector2(offset, 0f);
+        platform.transform.position = new Vector2(offset, -4.5f);
         offset += 30;
     }
 
